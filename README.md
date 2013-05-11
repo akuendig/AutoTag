@@ -4,7 +4,7 @@ This setup works with the following `~/.ctags`:
 
 ```
 --recurse=yes
---tag-relative=no
+--tag-relative=yes
 --exclude=.git
 --verbose=no
 -f .git/tags
