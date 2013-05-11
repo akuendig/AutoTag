@@ -61,6 +61,7 @@ if sys.version < '2.4':
 else:
    import subprocess
    def do_cmd(cmd, cwd):
+      AutoTag.LOGGER.info("Running %s in %s", cmd, cwd)
       devnull = open('/dev/null', 'w')
       p = subprocess.Popen(cmd, shell=True, stdout=None, stderr=devnull, cwd=cwd)
 
@@ -112,6 +113,7 @@ def makeAndAddHandler(logger, name):
 class AutoTag:
    MAXTAGSFILESIZE = long(vim_global("maxTagsFileSize"))
    DEBUG_NAME = "autotag_debug"
+   #logging.basicConfig(filename='/tmp/autotag.log')
    LOGGER = logging.getLogger(DEBUG_NAME)
    HANDLER = makeAndAddHandler(LOGGER, DEBUG_NAME)
 
