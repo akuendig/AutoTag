@@ -199,13 +199,22 @@ class AutoTag:
       return False
 
    def stripTags(self, tagsFile, sources):
-      AutoTag.LOGGER.info("Stripping tags for %s from tags file %s", ",".join(sources), tagsFile)
+      # save the cwd so we can come back
+      origdir = os.getcwd()
+      tagsdir = os.path.dirname(tagsFile)
+      os.chdir(tagsdir)
+
+      # relpath will be prepended to sources
+      relpath = os.path.relpath(origdir)
+      relsources = map(lambda x: "%s/%s" % (relpath, x), sources)
+
+      AutoTag.LOGGER.info("Stripping tags for %s from tags file %s", ",".join(relsources), tagsFile)
       backup = ".SAFE"
-      input = fileinput.FileInput(files=tagsFile, inplace=True, backup=backup)
+      input = fileinput.FileInput(files=os.path.basename(tagsFile), inplace=True, backup=backup)
       try:
          for l in input:
             l = l.strip()
-            if self.goodTag(l, sources):
+            if self.goodTag(l, relsources):
                print l
       finally:
          input.close()
@@ -213,6 +222,8 @@ class AutoTag:
             os.unlink(tagsFile + backup)
          except StandardError:
             pass
+         os.chdir(origdir)
+         AutoTag.LOGGER.info(" exitpwd: %s", os.getcwd())
 
    def updateTagsFile(self, tagsDir, tagsFile, sources):
       self.stripTags(tagsFile, sources)
