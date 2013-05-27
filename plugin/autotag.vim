@@ -214,9 +214,9 @@ class AutoTag:
    def updateTagsFile(self, tagsDir, tagsFile, sources):
       self.stripTags(tagsFile, sources)
       if self.tags_file:
-         cmd = "%s -f %s -a " % (self.ctags_cmd, self.tags_file)
+         cmd = "%s -f %s -a --fields=+l " % (self.ctags_cmd, self.tags_file)
       else:
-         cmd = "%s -a " % (self.ctags_cmd,)
+         cmd = "%s -a --fields=+l " % (self.ctags_cmd,)
       for source in sources:
          if os.path.isfile(os.path.join(tagsDir, source)):
             cmd += " '%s'" % source
