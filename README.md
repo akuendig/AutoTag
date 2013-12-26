@@ -1,3 +1,23 @@
+## Notes
+
+This setup works with the following `~/.ctags`:
+
+```
+--recurse=yes
+--tag-relative=yes
+--exclude=.git
+--verbose=no
+-f .git/tags
+```
+
+And the following line in `.vimrc.before`:
+
+```
+let g:autotagTagsFile = ".git/tags"
+```
+
+## Original Text
+
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=1343
 
 If you use ctags to make tags files of your source, it's nice to be able to re-run ctags on a source file when you save it.
