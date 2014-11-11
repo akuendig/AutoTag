@@ -196,6 +196,8 @@ class AutoTag:
          self.tags[(tagsDir, tagsFile)].append(relativeSource)
 
    def goodTag(self, line, excluded):
+      if len(line) == 0:
+         return False
       if line[0] == '!':
          return True
       else:
