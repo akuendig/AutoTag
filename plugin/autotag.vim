@@ -198,7 +198,7 @@ class AutoTag:
    def goodTag(self, line, excluded):
       if len(line) == 0:
          return False
-      if line[0] == '!':
+      elif line[0] == '!':
          return True
       else:
          f = string.split(line, '\t')
