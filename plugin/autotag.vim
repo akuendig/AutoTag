@@ -196,7 +196,9 @@ class AutoTag:
          self.tags[(tagsDir, tagsFile)].append(relativeSource)
 
    def goodTag(self, line, excluded):
-      if line[0] == '!':
+      if len(line) == 0:
+         return False
+      elif line[0] == '!':
          return True
       else:
          f = string.split(line, '\t')
